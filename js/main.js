@@ -13,6 +13,8 @@ var canHeight;
 var ane;
 var fruit;
 var mom;
+var baby;
+var babyTail=[];
 
 var mx;
 var my;
@@ -46,8 +48,16 @@ function init(){
 	mom=new momObj();
 	mom.init();
 
+	baby= new babyObj();
+	baby.init();
+
 	mx=canWidth*0.5;
 	my=canHeight*0.5;
+
+	for(i=0; i<8; i++){
+		babyTail[i]= new Image();
+		babyTail[i].src= "./src/babyTail"+ i + ".png";
+	}
 };
 
 function gameloop(){
@@ -56,6 +66,10 @@ function gameloop(){
 	deltaTime=now-lastTime;
 	lastTime=now;
 
+	if(deltaTime>40){
+		deltaTime=40;
+	};
+
 	drawBackground();
 	ane.draw();
 	fruitMonitor();
@@ -63,6 +77,9 @@ function gameloop(){
 
 	ctx1.clearRect(0,0,canWidth,canHeight);
 	mom.draw();
+	baby.draw();
+
+	momfruitCollision();
 
 
 };
